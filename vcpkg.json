@@ -1,0 +1,8 @@
+{
+  "name": "modern-cpp",
+  "version": "1.0.0",
+  "description": "Modern C++ Udemy course projects (CMake port)",
+  "dependencies": [
+    "gtest"
+  ]
+}

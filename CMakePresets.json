@@ -1,0 +1,71 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 25, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Default (Ninja, no vcpkg)",
+      "description": "Builds anywhere; GoogleTest is fetched if not installed",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/default",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+      "name": "msvc",
+      "displayName": "Visual Studio 2022 (x64) - GoogleTest fetched",
+      "description": "Uses your installed VS toolchain; downloads GoogleTest via git",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build/msvc"
+    },
+    {
+      "name": "msvc-vcpkg",
+      "displayName": "Visual Studio 2022 (x64) + vcpkg static (matches original .vcxproj)",
+      "description": "Requires the VCPKG_ROOT environment variable and gtest installed via vcpkg",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build/msvc-vcpkg",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+        "VCPKG_TARGET_TRIPLET": "x64-windows-static",
+        "CMAKE_MSVC_RUNTIME_LIBRARY": "MultiThreaded$<$<CONFIG:Debug>:Debug>"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "default", "configurePreset": "default" },
+    { "name": "msvc", "configurePreset": "msvc", "configuration": "Debug" },
+    { "name": "msvc-vcpkg", "configurePreset": "msvc-vcpkg", "configuration": "Debug" }
+  ],
+  "testPresets": [
+    { "name": "default", "configurePreset": "default", "output": { "outputOnFailure": true } },
+    { "name": "msvc", "configurePreset": "msvc", "configuration": "Debug", "output": { "outputOnFailure": true } },
+    { "name": "msvc-vcpkg", "configurePreset": "msvc-vcpkg", "configuration": "Debug", "output": { "outputOnFailure": true } }
+  ],
+  "workflowPresets": [
+    {
+      "name": "default",
+      "steps": [
+        { "type": "configure", "name": "default" },
+        { "type": "build", "name": "default" },
+        { "type": "test", "name": "default" }
+      ]
+    },
+    {
+      "name": "msvc",
+      "steps": [
+        { "type": "configure", "name": "msvc" },
+        { "type": "build", "name": "msvc" },
+        { "type": "test", "name": "msvc" }
+      ]
+    },
+    {
+      "name": "msvc-vcpkg",
+      "steps": [
+        { "type": "configure", "name": "msvc-vcpkg" },
+        { "type": "build", "name": "msvc-vcpkg" },
+        { "type": "test", "name": "msvc-vcpkg" }
+      ]
+    }
+  ]
+}
