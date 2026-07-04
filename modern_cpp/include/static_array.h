@@ -16,9 +16,9 @@ public:
 };
 
 template<typename T, int size> // can't use this technique if the array is dynamically allocated (e.g., int* arr = new int[5];)
-void print(T (&arr)[size]);
+void init_print(T (&arr)[size]);
 
-void print(std::span<const int> arr);
+void init_print(std::span<const int> arr);
 
 template<typename T, int size>
 void shuffle_array(T (&arr)[size]);

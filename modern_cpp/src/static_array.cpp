@@ -17,7 +17,7 @@ void static_array::print(int *ptr, int size) {
 //the array length is part of the type at compile time.
 // !!! An array's size is part of its type. int[5] and int[4] are genuinely different types
 template<typename T, int size>
-void print(T (&arr)[size]) {
+void init_print(T (&arr)[size]) {
     // reference to an array of N elements of type T
     for (int i = 0; i < size; ++i) {
         std::cout << arr[i] << ' ';
@@ -25,7 +25,7 @@ void print(T (&arr)[size]) {
 }
 
 
-void print(std::span<const int> arr) {
+void init_print(std::span<const int> arr) {
     for (int x: arr) std::cout << x << ' ';
     std::cout << '\n';
 }

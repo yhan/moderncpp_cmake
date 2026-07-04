@@ -18,7 +18,7 @@ if(NOT GTest_FOUND)
     FetchContent_MakeAvailable(googletest)
 endif()
 
-add_executable(modern_cpp_tests ModernCppTests.cpp)
+add_executable(modern_cpp_tests ModernCppTests.cpp MemoryTests.cpp)
 target_link_libraries(modern_cpp_tests PRIVATE
     modern_cpp_lib
     GTest::gtest

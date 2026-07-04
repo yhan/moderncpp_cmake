@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 #include <span>
+#include "TwoDimArr.h"
 
 
 void print_and_delete_array() {
@@ -26,14 +27,6 @@ void print_and_delete_array() {
 }
 
 int main() {
-    int *p = new int[5]{1, 2, 3, 4, 5};
-    int *p_temp = new int[10];
-    std::copy(p, p + 5, p_temp);
-
-    for (int i = 0; i < 10; ++i) {
-        std::cout << p_temp[i] << ' ';
-    }
-
-    delete[] p;
-    delete[] p_temp;
+    int arr[2][3] = {{1, 2, 3}, {4, 5, 6}};
+    init_print(arr);
 }
